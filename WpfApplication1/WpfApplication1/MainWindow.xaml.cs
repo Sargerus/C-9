@@ -14,15 +14,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows;
+using System.Drawing;
+using System.ComponentModel;
+using System.Windows.Resources;
+using System.Threading;
 
 namespace WpfApplication1
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        public List<int> FontSizes  { get; set; }
+        static int WindowsCount;
+        private string stringnumberofchars;
+        public List<int> FontSizes { get; set; }
         ComboBox siz;
         public List<string> Colors { get; private set; }
         public GeneralCommand OpenCommand { get; set; }
@@ -30,31 +36,77 @@ namespace WpfApplication1
         public GeneralCommand CutCommand { get; set; }
         public GeneralCommand CopyCommand { get; set; }
         public GeneralCommand PasteCommand { get; set; }
+        public GeneralCommand NewCommand { get; set; }
+        public GeneralCommand CloseCommand { get; set; }
+        public GeneralCommand ChangeLangCommand { get; set; }
+        public string StringNumberOfChars
+        {
+            get
+            {
+                return stringnumberofchars;
+            }
+            set
+            {
+                TextBox tb = (TextBox)this.FindName("StatusChars");
+                stringnumberofchars = value;
+                tb.Text = value;
+            }
+        }
         public string RichBoxText { get; set; }
-        
+        static MainWindow()
+        {
+            WindowsCount = 0;
+        }
         public MainWindow()
         {
+            
             RichTextBox rch = (RichTextBox)this.FindName("mainbox");
             
             siz = (ComboBox)this.FindName("Sizes");
 
             FontSizes = new List<int>();
             Colors = new List<string>() { "Red", "Green", "Blue" };
-            for (int i = 0; i < 50; i++)
+            for (int i = 1; i < 50; i++)
                 FontSizes.Add(i);
+
+
 
             OpenCommand = new GeneralCommand(Open, null);
             CutCommand = new GeneralCommand(Cut, null);
             CopyCommand = new GeneralCommand(Copy, null);
             PasteCommand = new GeneralCommand(Paste, null);
             SaveCommand = new GeneralCommand(Save, null);
+            NewCommand = new GeneralCommand(New, null);
+            CloseCommand = new GeneralCommand(CloseW, null);
+            ChangeLangCommand = new GeneralCommand(ChangeLang, null);
             DataContext = this;
+            System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("ru-RU");
             InitializeComponent();
 
-}
+            this.Title = "NewWindow" + ++WindowsCount;
+           
+            StreamResourceInfo sriCurs = Application.GetResourceStream(new Uri("cur.cur", UriKind.Relative));
+            this.Cursor = new Cursor(sriCurs.Stream);
+            
+        }
+        public void ChangeLang()
+        {
+            MessageBox.Show(System.Globalization.CultureInfo.CurrentCulture.ToString());
+          
+
+        }
+        public void CloseW()
+        {
+            Close();
+        }
+        public void New()
+        {
+            var newWindow = new MainWindow();
+            newWindow.Show();
+        }
         public void Save()
         {
-           RichTextBox rch = (RichTextBox)this.FindName("mainbox");
+            RichTextBox rch = (RichTextBox)this.FindName("mainbox");
             try
             {
                 SaveFileDialog ofd = new SaveFileDialog();
@@ -62,27 +114,31 @@ namespace WpfApplication1
                 ofd.Filter = "TXT File|*.txt";
                 ofd.Title = "Opening";
                 ofd.ShowDialog();
-                System.IO.File.WriteAllText(ofd.FileName, new TextRange(rch.Document.ContentStart,rch.Document.ContentEnd).Text);
+                System.IO.File.WriteAllText(ofd.FileName, new TextRange(rch.Document.ContentStart, rch.Document.ContentEnd).Text);
 
-                
+
             }
             catch { }
         }
         public void Paste()
         {
             RichTextBox rch = (RichTextBox)this.FindName("mainbox");
-            rch.AppendText(Clipboard.GetText());
+            rch.Paste();
+
+            //rch.AppendText(Clipboard.GetText());
         }
         public void Copy()
         {
             RichTextBox rch = (RichTextBox)this.FindName("mainbox");
-            Clipboard.SetText(rch.Selection.Text);
+            rch.Copy();
+            //Clipboard.SetText(rch.Selection.Text);
         }
         public void Cut()
         {
             RichTextBox rch = (RichTextBox)this.FindName("mainbox");
-            Clipboard.SetText(rch.Selection.Text);
-            rch.Selection.Text = "";
+            rch.Cut();
+            //    Clipboard.SetText(rch.Selection.Text);
+            //    rch.Selection.Text = "";
         }
         public void Open()
         {
@@ -96,18 +152,20 @@ namespace WpfApplication1
                 ofd.Title = "Opening";
                 ofd.ShowDialog();
                 buf = System.IO.File.ReadAllText(ofd.FileName);
-                
-            
+
+
                 rch.Document.Blocks.Clear();
                 rch.Document.Blocks.Add(new Paragraph(new Run(buf)));
-                        
+
+                this.Title = ofd.FileName;
+
             }
             catch { }
 
-           
-           
-
             
+
+
+
         }
 
         private void Sizes_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -116,13 +174,14 @@ namespace WpfApplication1
             TextSelection selectedText = rch.Selection;
             var k = (int)(sender as ComboBox).SelectedValue;
 
-            if (selectedText.Text!="")
+            if (selectedText.Text != "")
             {
                 selectedText.ApplyPropertyValue(RichTextBox.FontSizeProperty, (double)k);
                 return;
             }
-            
+
             rch.FontSize = (double)k;
+            rch.Focus();
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -140,7 +199,66 @@ namespace WpfApplication1
                     case "Blue": { selectedText.ApplyPropertyValue(RichTextBox.ForegroundProperty, Brushes.Blue); return; }
                 }
             }
+            rch.Focus();
         }
-    }  
+
+        private void Bold_Checked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            RichTextBox rch = (RichTextBox)this.FindName("mainbox");
+            rch.FontWeight = FontWeights.Bold;
+        }
+
+        private void Bold_Unchecked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            RichTextBox rch = (RichTextBox)this.FindName("mainbox");
+            rch.FontWeight = FontWeights.Normal;
+        }
+
+        private void Underline_Checked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            RichTextBox rch = (RichTextBox)this.FindName("mainbox");
+        }
+        private void Underline_Unchecked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            RichTextBox rch = (RichTextBox)this.FindName("mainbox");
+
+        }
+        private void Italic_Checked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            RichTextBox rch = (RichTextBox)this.FindName("mainbox");
+            rch.FontStyle = FontStyles.Italic;
+        }
+        private void Italic_Unchecked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            RichTextBox rch = (RichTextBox)this.FindName("mainbox");
+            rch.FontStyle = FontStyles.Normal;
+        }
+
+        private void mainbox_KeyDown(object sender, KeyEventArgs e)
+        {
+            RichTextBox rch = (RichTextBox)this.FindName("mainbox");
+            string richText = new TextRange(rch.Document.ContentStart, rch.Document.ContentEnd).Text;
+            StringNumberOfChars = "Number of words: " + richText.Length;
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged(string str)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(str));
+        }
+
+        private void mainbox_DragEnter(object sender, System.Windows.DragEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+      
+
+       
+       
+       
+    }
+
     }
 

@@ -11,3 +11,12 @@ E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\WpfApplicatio
 E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.csproj.GenerateResource.Cache
 E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.exe
 E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.pdb
+E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\Resources\lang.ru-RU.baml
+E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\Resources\lang.en-US.baml
+e:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1_MarkupCompile.lref
+E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\bin\Debug\ru-RU\WpfApplication1.resources.dll
+E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.Properties.Resources.ru-RU.resources
+E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\ru-RU\WpfApplication1.resources.dll
+E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\bin\Debug\en-US\WpfApplication1.resources.dll
+E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.Properties.Resources.en-US.resources
+E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\en-US\WpfApplication1.resources.dll

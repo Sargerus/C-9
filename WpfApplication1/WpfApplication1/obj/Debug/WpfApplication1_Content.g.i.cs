@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("cut.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("oop2.ico")]
 
 

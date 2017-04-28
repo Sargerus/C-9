@@ -118,36 +118,36 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="m_Close" xml:space="preserve">
-    <value>Close</value>
+    <value>Закрыть</value>
   </data>
   <data name="m_Copy" xml:space="preserve">
-    <value>Copy</value>
+    <value>Копировать</value>
   </data>
   <data name="m_Cut" xml:space="preserve">
-    <value>Cut</value>
+    <value>Вырезать</value>
   </data>
   <data name="m_Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>Правка</value>
   </data>
   <data name="m_File" xml:space="preserve">
-    <value>File</value>
+    <value>Файл</value>
   </data>
   <data name="m_Lang" xml:space="preserve">
-    <value>Language</value>
+    <value>Язык</value>
   </data>
   <data name="m_New" xml:space="preserve">
-    <value>New</value>
+    <value>Новый</value>
   </data>
   <data name="m_Open" xml:space="preserve">
-    <value>Open...</value>
+    <value>Открыть...</value>
   </data>
   <data name="m_Paste" xml:space="preserve">
-    <value>Paste</value>
+    <value>Вставить</value>
   </data>
   <data name="m_Save" xml:space="preserve">
-    <value>Save</value>
+    <value>Сохранить</value>
   </data>
   <data name="m_Tools" xml:space="preserve">
-    <value>Tools</value>
+    <value>Настройки</value>
   </data>
 </root>
