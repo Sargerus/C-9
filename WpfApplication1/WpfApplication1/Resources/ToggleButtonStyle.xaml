@@ -3,6 +3,38 @@
                     xmlns:v="clr-namespace:System;assembly=mscorlib">
     
     <Style TargetType="ToggleButton">
-        <Setter Property="Background" Value="Aquamarine"></Setter> 
+        <Setter Property="Background" Value="Aquamarine"></Setter>
+
+        
+            <Style.Triggers>
+            <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="00:00:03" 
+                                                 RepeatBehavior="5"
+                                                 Storyboard.TargetProperty="Width" 
+                                                 To="50">
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+                
+            <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                            <DoubleAnimation     
+                                                 FillBehavior="Stop"
+                                                 Storyboard.TargetProperty="Width">
+                            </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                    
+                </EventTrigger>
+            </Style.Triggers>
+        
     </Style>
 </ResourceDictionary>

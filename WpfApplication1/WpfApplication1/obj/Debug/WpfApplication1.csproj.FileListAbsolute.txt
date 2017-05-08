@@ -24,3 +24,7 @@ e:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\Resources\Tog
 e:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\App.baml
 e:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\Resources\ComboBoxStyle.baml
 e:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\Resources\RichTextBoxStyle.baml
+E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\Resources\BlackTheme.baml
+E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\Resources\WhiteTheme.baml
+E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\MyControl.baml
+E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\MyControl.g.cs

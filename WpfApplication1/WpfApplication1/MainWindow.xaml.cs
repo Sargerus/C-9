@@ -27,6 +27,7 @@ namespace WpfApplication1
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         static int WindowsCount;
+        private bool isblack;
         private string stringnumberofchars;
         public List<int> FontSizes { get; set; }
         ComboBox siz;
@@ -39,6 +40,9 @@ namespace WpfApplication1
         public GeneralCommand NewCommand { get; set; }
         public GeneralCommand CloseCommand { get; set; }
         public GeneralCommand ChangeLangCommand { get; set; }
+        public GeneralCommand ChangeStyleCommand { get; set; }
+        public GeneralCommand UndoCommand { get; set; }
+        public GeneralCommand RedoCommand { get; set; }
         public string StringNumberOfChars
         {
             get
@@ -59,7 +63,8 @@ namespace WpfApplication1
         }
         public MainWindow()
         {
-            
+
+            isblack = false;
             RichTextBox rch = (RichTextBox)this.FindName("mainbox");
             
             siz = (ComboBox)this.FindName("Sizes");
@@ -68,7 +73,7 @@ namespace WpfApplication1
             Colors = new List<string>() { "Red", "Green", "Blue" };
             for (int i = 1; i < 50; i++)
                 FontSizes.Add(i);
-
+            
 
 
             OpenCommand = new GeneralCommand(Open, null);
@@ -79,20 +84,78 @@ namespace WpfApplication1
             NewCommand = new GeneralCommand(New, null);
             CloseCommand = new GeneralCommand(CloseW, null);
             ChangeLangCommand = new GeneralCommand(ChangeLang, null);
+            ChangeStyleCommand = new GeneralCommand(ChangeStyle, null);
+            UndoCommand = new GeneralCommand(U, null);
+            RedoCommand = new GeneralCommand(R, null);
+            
             DataContext = this;
             System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("ru-RU");
             InitializeComponent();
 
+            string[] linesformenu = System.IO.File.ReadAllLines(@"lastopened.txt");
+
+            foreach(var s in linesformenu)
+            {
+                MenuItem mi = new MenuItem();
+                mi.Header = s;
+                mi.Click += mi_Click;
+                MainMenu.Items.Add(mi);
+            }
+            
             this.Title = "NewWindow" + ++WindowsCount;
            
             StreamResourceInfo sriCurs = Application.GetResourceStream(new Uri("cur.cur", UriKind.Relative));
             this.Cursor = new Cursor(sriCurs.Stream);
             
         }
+        //-----------------------------------------------------------------
+        void mi_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            RichTextBox rch = (RichTextBox)this.FindName("mainbox");
+           string buf = System.IO.File.ReadAllText(((MenuItem)sender).Header.ToString());
+
+           rch.Document.Blocks.Clear();
+           rch.Document.Blocks.Add(new Paragraph(new Run(buf)));
+
+           this.Title = ((MenuItem)sender).Header.ToString();
+
+        }
+
+        //---------------------------------------------------------
+
+        public void U()
+        {
+            RichTextBox rch = (RichTextBox)this.FindName("mainbox");
+            rch.Undo();
+        }
+        public void R()
+        {
+            RichTextBox rch = (RichTextBox)this.FindName("mainbox");
+            rch.Redo();
+        }
+        public void ChangeStyle()
+        {
+            if (!isblack)
+            {
+                var uri = new Uri("Resources/BlackTheme.xaml", UriKind.Relative);
+                ResourceDictionary rd = Application.LoadComponent(uri) as ResourceDictionary;
+                Application.Current.Resources.Clear();
+                Application.Current.Resources.MergedDictionaries.Add(rd);
+                isblack = true;
+            }
+            else
+            {
+                var uri = new Uri("Resources/WhiteTheme.xaml", UriKind.Relative);
+                ResourceDictionary rd = Application.LoadComponent(uri) as ResourceDictionary;
+                Application.Current.Resources.Clear();
+                Application.Current.Resources.MergedDictionaries.Add(rd);
+                isblack = false;
+            }
+        }
         public void ChangeLang()
         {
             MessageBox.Show(System.Globalization.CultureInfo.CurrentCulture.ToString());
-          
+           
 
         }
         public void CloseW()
@@ -152,6 +215,8 @@ namespace WpfApplication1
                 ofd.Title = "Opening";
                 ofd.ShowDialog();
                 buf = System.IO.File.ReadAllText(ofd.FileName);
+
+                System.IO.File.AppendAllText("lastopened.txt", ofd.FileName);
 
 
                 rch.Document.Blocks.Clear();

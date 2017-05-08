@@ -4,6 +4,7 @@
     <Style TargetType="RichTextBox">
         <Setter Property="Background" Value="DarkSeaGreen"></Setter>
         <Setter Property="FontSize" Value="14"></Setter>
+  
     </Style>
     
 </ResourceDictionary>
