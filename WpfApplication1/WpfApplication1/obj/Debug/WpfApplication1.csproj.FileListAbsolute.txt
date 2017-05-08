@@ -20,3 +20,7 @@ E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\ru-RU\WpfAppl
 E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\bin\Debug\en-US\WpfApplication1.resources.dll
 E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\WpfApplication1.Properties.Resources.en-US.resources
 E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\en-US\WpfApplication1.resources.dll
+e:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\Resources\ToggleButtonStyle.baml
+e:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\App.baml
+e:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\Resources\ComboBoxStyle.baml
+e:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\Resources\RichTextBoxStyle.baml

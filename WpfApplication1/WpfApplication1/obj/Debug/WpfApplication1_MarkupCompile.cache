@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\
+e:\4 семестр\c#\9\WpfApplication1\WpfApplication1\obj\Debug\
 WpfApplication1
 none
 false
 DEBUG;TRACE
-E:\4 семестр\c#\9\WpfApplication1\WpfApplication1\App.xaml
-31320814479
+e:\4 семестр\c#\9\WpfApplication1\WpfApplication1\App.xaml
+6-192307321
 
 91529835231
 12-42050009
-MainWindow.xaml;Resources\lang.en-US.xaml;Resources\lang.ru-RU.xaml;
+MainWindow.xaml;Resources\ComboBoxStyle.xaml;Resources\lang.en-US.xaml;Resources\lang.ru-RU.xaml;Resources\RichTextBoxStyle.xaml;Resources\ToggleButtonStyle.xaml;
 
 False
 
